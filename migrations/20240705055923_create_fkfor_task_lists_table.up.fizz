@@ -1,0 +1,14 @@
+add_foreign_key("task_lists", "user_id", {"users": ["id"]}, {
+    "on_delete": "cascade",
+    "on_update": "cascade",
+})
+
+add_foreign_key("task_lists", "state_id", {"states": ["id"]}, {
+    "on_delete": "restrict",
+    "on_update": "cascade",
+})
+
+add_foreign_key("task_lists", "priority_id", {"priorities": ["id"]}, {
+    "on_delete": "restrict",
+    "on_update": "cascade",
+})

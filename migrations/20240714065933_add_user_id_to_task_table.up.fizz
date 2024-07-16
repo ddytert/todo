@@ -1,0 +1,2 @@
+add_column("tasks", "user_id", "integer", {"null": true})
+

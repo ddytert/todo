@@ -1,0 +1,5 @@
+drop_foreign_key("task_lists", "task_lists_users_id_fk", {})
+
+drop_foreign_key("task_lists", "task_lists_states_id_fk", {})
+
+drop_foreign_key("task_lists", "task_lists_priorities_id_fk", {})

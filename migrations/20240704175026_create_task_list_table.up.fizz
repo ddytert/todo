@@ -1,0 +1,9 @@
+create_table("task_lists") {
+    t.Column("id", "integer", {primary: true})
+    t.Column("user_id", "integer", {})
+    t.Column("name", "string", {})
+    t.Column("description", "string", {"default": ""})
+    t.Column("state_id", "integer", {})
+    t.Column("priority_id", "integer", {})
+    t.Column("due_date", "timestamp", {})
+}

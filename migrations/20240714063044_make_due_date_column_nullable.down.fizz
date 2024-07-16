@@ -1,0 +1,3 @@
+change_column("task_lists", "due_date", "timestamp", {})
+
+change_column("tasks", "due_date", "timestamp", {})
