@@ -7,7 +7,7 @@ import (
 
 	"github.com/ddytert/todo/internal/config"
 	"github.com/ddytert/todo/internal/driver"
-	"github.com/ddytert/todo/internal/handler"
+	"github.com/ddytert/todo/internal/handlers"
 	"github.com/ddytert/todo/internal/transport/rest"
 )
 
@@ -22,8 +22,8 @@ func Initialize(config *config.Config) {
 	log.Println("Connected to database!")
 
 	// setup handler repo
-	repo := handler.NewRepo(db)
-	handler.NewHandlers(repo)
+	repo := handlers.NewRepo(db)
+	handlers.NewHandlers(repo)
 
 	router := rest.GetRouter()
 

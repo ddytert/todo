@@ -3,7 +3,7 @@ package rest
 import (
 	"net/http"
 
-	"github.com/ddytert/todo/internal/handler"
+	"github.com/ddytert/todo/internal/handlers"
 	"github.com/go-chi/chi/v5"
 )
 
@@ -12,10 +12,10 @@ func GetRouter() http.Handler {
 	mux := chi.NewRouter()
 
 	// Gerneral
-	mux.Get("/health", handler.Repo.HealthCheck)
+	mux.Get("/health", handlers.Repo.HealthCheck)
 
 	// Tasks
-	mux.Get("/tasks/user/{id}", handler.Repo.GetAllTasksForUser)
+	mux.Get("/tasks/user/{id}", handlers.Repo.GetAllTasksForUser)
 
 	return mux
 }
