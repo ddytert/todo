@@ -16,7 +16,7 @@ func (m *postgresDBRepo) Connection() *sql.DB {
 func (m *postgresDBRepo) AllTasksForUser(userID int) ([]*models.Task, error) {
 	var tasks []*models.Task
 
-	dueDate, _ := time.Parse(time.RFC3339, "2024-07-19T15:30:00Z")
+	dueDate := time.Now().AddDate(0, 0, 3)
 
 	tasks = append(tasks, &models.Task{
 		ID:         1,
