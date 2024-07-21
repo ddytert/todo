@@ -423,6 +423,14 @@ ALTER TABLE ONLY public.tasks
 
 
 --
+-- Name: tasks tasks_users_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: ddytert
+--
+
+ALTER TABLE ONLY public.tasks
+    ADD CONSTRAINT tasks_users_id_fk FOREIGN KEY (user_id) REFERENCES public.users(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
 -- Name: users users_access_levels_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: ddytert
 --
 

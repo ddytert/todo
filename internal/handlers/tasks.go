@@ -24,3 +24,20 @@ func (m *Repository) GetAllTasksForUser(w http.ResponseWriter, r *http.Request) 
 
 	_ = utils.WriteJSON(w, http.StatusOK, tasks)
 }
+
+func (m *Repository) GetAllTasksForTaskList(w http.ResponseWriter, r *http.Request) {
+	id := chi.URLParam(r, "id")
+	taskListID, err := strconv.Atoi(id)
+	if err != nil {
+		utils.ErrorJSON(w, err)
+		return
+	}
+
+	tasks, err := m.DB.AllTasksForTaskList(taskListID)
+	if err != nil {
+		utils.ErrorJSON(w, err)
+		return
+	}
+
+	_ = utils.WriteJSON(w, http.StatusOK, tasks)
+}
