@@ -22,10 +22,15 @@ func (m *Repository) GetAllTasksForUser(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
+	if len(tasks) == 0 {
+		utils.ClientError(w, 404)
+		return
+	}
+
 	_ = utils.WriteJSON(w, http.StatusOK, tasks)
 }
 
-func (m *Repository) GetAllTasksForTaskList(w http.ResponseWriter, r *http.Request) {
+func (m *Repository) GetTasksForTaskList(w http.ResponseWriter, r *http.Request) {
 	id := chi.URLParam(r, "id")
 	taskListID, err := strconv.Atoi(id)
 	if err != nil {
@@ -39,5 +44,32 @@ func (m *Repository) GetAllTasksForTaskList(w http.ResponseWriter, r *http.Reque
 		return
 	}
 
+	if len(tasks) == 0 {
+		utils.ClientError(w, 404)
+		return
+	}
+
 	_ = utils.WriteJSON(w, http.StatusOK, tasks)
+}
+
+func (m *Repository) GetTaskListsForUser(w http.ResponseWriter, r *http.Request) {
+	id := chi.URLParam(r, "id")
+	userID, err := strconv.Atoi(id)
+	if err != nil {
+		utils.ErrorJSON(w, err)
+		return
+	}
+
+	taskLists, err := m.DB.AllTaskListsForUser(userID)
+	if err != nil {
+		utils.ErrorJSON(w, err)
+		return
+	}
+
+	if len(taskLists) == 0 {
+		utils.ClientError(w, 404)
+		return
+	}
+
+	_ = utils.WriteJSON(w, http.StatusOK, taskLists)
 }

@@ -108,6 +108,51 @@ func (m *postgresDBRepo) AllTasksForTaskList(taskListID int) ([]*models.Task, er
 	return tasks, nil
 }
 
+func (m *postgresDBRepo) AllTaskListsForUser(userID int) ([]*models.TaskList, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), dbTimeout)
+	defer cancel()
+
+	query := `
+	select
+		id, user_id,
+		name, description, state_id,
+		priority_id, due_date,
+		created_at, updated_at
+	from
+		task_lists
+	where user_id = $1
+`
+	rows, err := m.DB.QueryContext(ctx, query, userID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var taskLists []*models.TaskList
+
+	for rows.Next() {
+		var tl models.TaskList
+		err := rows.Scan(
+			&tl.ID,
+			&tl.UserID,
+			&tl.Name,
+			&tl.Description,
+			&tl.StateID,
+			&tl.PriorityID,
+			&tl.DueDate,
+			&tl.CreatedAt,
+			&tl.UpdatedAt,
+		)
+		if err != nil {
+			return nil, err
+		}
+		taskLists = append(taskLists, &tl)
+	}
+
+	return taskLists, nil
+}
+
+// ToDo: Remove, since it doesn't make sense
 func (m *postgresDBRepo) UserByID(userID int) (*models.User, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), dbTimeout)
 	defer cancel()
@@ -140,5 +185,4 @@ func (m *postgresDBRepo) UserByID(userID int) (*models.User, error) {
 	}
 
 	return &user, nil
-
 }

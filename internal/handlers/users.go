@@ -8,7 +8,7 @@ import (
 	"github.com/go-chi/chi/v5"
 )
 
-// Todo: Remove due to security concerns
+// Todo: Remove due to security risk
 func (m *Repository) GetUserById(w http.ResponseWriter, r *http.Request) {
 	id := chi.URLParam(r, "id")
 	userID, err := strconv.Atoi(id)
@@ -20,6 +20,11 @@ func (m *Repository) GetUserById(w http.ResponseWriter, r *http.Request) {
 	user, err := m.DB.UserByID(userID)
 	if err != nil {
 		utils.ErrorJSON(w, err)
+		return
+	}
+
+	if user == nil {
+		utils.ClientError(w, 404)
 		return
 	}
 

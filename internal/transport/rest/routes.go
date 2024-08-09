@@ -16,7 +16,8 @@ func GetRouter() http.Handler {
 
 	// Tasks
 	mux.Get("/tasks/user/{id}", handlers.Repo.GetAllTasksForUser)
-	mux.Get("/tasks/task_list/{id}", handlers.Repo.GetAllTasksForTaskList)
+	mux.Get("/tasks/task_list/{id}", handlers.Repo.GetTasksForTaskList)
+	mux.Get("/tasks/task_lists/user/{id}", handlers.Repo.GetTaskListsForUser)
 
 	// Users
 	mux.Get("/users/{id}", handlers.Repo.GetUserById)

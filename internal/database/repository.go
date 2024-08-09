@@ -11,6 +11,7 @@ type DBRepo interface {
 
 	AllTasksForUser(userID int) ([]*models.Task, error)
 	AllTasksForTaskList(taskListID int) ([]*models.Task, error)
+	AllTaskListsForUser(userID int) ([]*models.TaskList, error)
 
 	UserByID(userID int) (*models.User, error)
 }
