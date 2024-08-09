@@ -46,3 +46,11 @@ func ErrorJSON(w http.ResponseWriter, err error, status ...int) error {
 
 	return WriteJSON(w, statusCode, payload)
 }
+
+func ClientError(w http.ResponseWriter, status int) {
+	http.Error(w, http.StatusText(status), status)
+}
+
+func ServerError(w http.ResponseWriter, err error) {
+	http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+}
