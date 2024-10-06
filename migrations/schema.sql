@@ -194,7 +194,8 @@ CREATE TABLE public.tasks (
     due_date timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    user_id integer NOT NULL
+    user_id integer NOT NULL,
+    done boolean DEFAULT false NOT NULL
 );
 
 
