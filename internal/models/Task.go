@@ -8,6 +8,7 @@ type Task struct {
 	UserID     int        `json:"user_id"`
 	Title      string     `json:"title"`
 	Content    string     `json:"content"`
+	Done       bool       `json:"done"`
 	StateID    int        `json:"state_id"`
 	PriorityID int        `json:"priority_id"`
 	DueDate    *time.Time `json:"due_date"`

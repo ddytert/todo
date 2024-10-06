@@ -69,8 +69,8 @@ func (m *postgresDBRepo) AllTasksForTaskList(taskListID int) ([]*models.Task, er
 	query := `
 		select
 			id, task_list_id, user_id,
-			title, content, state_id,
-			priority_id, due_date,
+			title, content, done,
+			state_id, priority_id, due_date,
 			created_at, updated_at
 		from
 			tasks
@@ -93,6 +93,7 @@ func (m *postgresDBRepo) AllTasksForTaskList(taskListID int) ([]*models.Task, er
 			&t.UserID,
 			&t.Title,
 			&t.Content,
+			&t.Done,
 			&t.StateID,
 			&t.PriorityID,
 			&t.DueDate,
@@ -146,6 +147,7 @@ func (m *postgresDBRepo) AllTaskListsForUser(userID int) ([]*models.TaskList, er
 		if err != nil {
 			return nil, err
 		}
+		// tl.Tasks = []*models.Task{}
 		taskLists = append(taskLists, &tl)
 	}
 
