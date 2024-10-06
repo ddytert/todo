@@ -71,5 +71,18 @@ func (m *Repository) GetTaskListsForUser(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
+	for _, tl := range taskLists {
+		tasks, err := m.DB.AllTasksForTaskList(tl.ID)
+		if err != nil {
+			utils.ErrorJSON(w, err)
+			return
+		}
+		if len(tasks) == 0 {
+			utils.ClientError(w, 404)
+			return
+		}
+		tl.Tasks = tasks
+    }
+
 	_ = utils.WriteJSON(w, http.StatusOK, taskLists)
 }
