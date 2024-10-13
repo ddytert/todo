@@ -22,9 +22,9 @@ func (m *postgresDBRepo) AllTodosForUser(userID int) ([]*models.Todo, error) {
 	query := `
 		select
 			id, todo_list_id, user_id,
-			title, content, state_id,
-			priority_id, due_date,
-			created_at, updated_at
+			title, content, done,
+			state_id, priority_id,
+			due_date, created_at, updated_at
 		from
 			todos
 		where user_id = $1
@@ -117,9 +117,9 @@ func (m *postgresDBRepo) AllTodoListsForUser(userID int) ([]*models.TodoList, er
 	query := `
 	select
 		id, user_id,
-		name, description, state_id,
-		priority_id, due_date,
-		created_at, updated_at
+		name, description, done,
+		state_id, priority_id,
+		due_date, created_at, updated_at
 	from
 		todo_lists
 	where user_id = $1

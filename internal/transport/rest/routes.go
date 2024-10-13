@@ -16,7 +16,7 @@ func GetRouter() http.Handler {
 
 	// Todos
 	mux.Get("/todos/user/{id}", handlers.Repo.GetAllTodosForUser)
-	mux.Get("/todoList/{id}", handlers.Repo.GetTodossForTodoList)
+	mux.Get("/todoLists/{id}", handlers.Repo.GetTodossForTodoList)
 	mux.Get("/todoLists/user/{id}", handlers.Repo.GetTodoListsForUser)
 
 	// Users
