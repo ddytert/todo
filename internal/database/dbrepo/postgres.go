@@ -14,19 +14,19 @@ func (m *postgresDBRepo) Connection() *sql.DB {
 	return m.DB
 }
 
-func (m *postgresDBRepo) AllTasksForUser(userID int) ([]*models.Task, error) {
+func (m *postgresDBRepo) AllTodosForUser(userID int) ([]*models.Todo, error) {
 
 	ctx, cancel := context.WithTimeout(context.Background(), dbTimeout)
 	defer cancel()
 
 	query := `
 		select
-			id, task_list_id, user_id,
+			id, todo_list_id, user_id,
 			title, content, state_id,
 			priority_id, due_date,
 			created_at, updated_at
 		from
-			tasks
+			todos
 		where user_id = $1
 	`
 
@@ -36,13 +36,13 @@ func (m *postgresDBRepo) AllTasksForUser(userID int) ([]*models.Task, error) {
 	}
 	defer rows.Close()
 
-	var tasks []*models.Task
+	var todos []*models.Todo
 
 	for rows.Next() {
-		var t models.Task
+		var t models.Todo
 		err := rows.Scan(
 			&t.ID,
-			&t.TaskListID,
+			&t.TodoListID,
 			&t.UserID,
 			&t.Title,
 			&t.Content,
@@ -55,41 +55,41 @@ func (m *postgresDBRepo) AllTasksForUser(userID int) ([]*models.Task, error) {
 		if err != nil {
 			return nil, err
 		}
-		tasks = append(tasks, &t)
+		todos = append(todos, &t)
 	}
 
-	return tasks, nil
+	return todos, nil
 }
 
-func (m *postgresDBRepo) AllTasksForTaskList(taskListID int) ([]*models.Task, error) {
+func (m *postgresDBRepo) AllTodosForTodoList(todoListID int) ([]*models.Todo, error) {
 
 	ctx, cancel := context.WithTimeout(context.Background(), dbTimeout)
 	defer cancel()
 
 	query := `
 		select
-			id, task_list_id, user_id,
+			id, todo_list_id, user_id,
 			title, content, done,
 			state_id, priority_id, due_date,
 			created_at, updated_at
 		from
-			tasks
-		where task_list_id = $1
+			todos
+		where todo_list_id = $1
 	`
 
-	rows, err := m.DB.QueryContext(ctx, query, taskListID)
+	rows, err := m.DB.QueryContext(ctx, query, todoListID)
 	if err != nil {
 		return nil, err
 	}
 	defer rows.Close()
 
-	var tasks []*models.Task
+	var todos []*models.Todo
 
 	for rows.Next() {
-		var t models.Task
+		var t models.Todo
 		err := rows.Scan(
 			&t.ID,
-			&t.TaskListID,
+			&t.TodoListID,
 			&t.UserID,
 			&t.Title,
 			&t.Content,
@@ -103,13 +103,13 @@ func (m *postgresDBRepo) AllTasksForTaskList(taskListID int) ([]*models.Task, er
 		if err != nil {
 			return nil, err
 		}
-		tasks = append(tasks, &t)
+		todos = append(todos, &t)
 	}
 
-	return tasks, nil
+	return todos, nil
 }
 
-func (m *postgresDBRepo) AllTaskListsForUser(userID int) ([]*models.TaskList, error) {
+func (m *postgresDBRepo) AllTodoListsForUser(userID int) ([]*models.TodoList, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), dbTimeout)
 	defer cancel()
 
@@ -120,7 +120,7 @@ func (m *postgresDBRepo) AllTaskListsForUser(userID int) ([]*models.TaskList, er
 		priority_id, due_date,
 		created_at, updated_at
 	from
-		task_lists
+		todo_lists
 	where user_id = $1
 `
 	rows, err := m.DB.QueryContext(ctx, query, userID)
@@ -129,10 +129,10 @@ func (m *postgresDBRepo) AllTaskListsForUser(userID int) ([]*models.TaskList, er
 	}
 	defer rows.Close()
 
-	var taskLists []*models.TaskList
+	var todoLists []*models.TodoList
 
 	for rows.Next() {
-		var tl models.TaskList
+		var tl models.TodoList
 		err := rows.Scan(
 			&tl.ID,
 			&tl.UserID,
@@ -147,11 +147,11 @@ func (m *postgresDBRepo) AllTaskListsForUser(userID int) ([]*models.TaskList, er
 		if err != nil {
 			return nil, err
 		}
-		// tl.Tasks = []*models.Task{}
-		taskLists = append(taskLists, &tl)
+		// tl.todos = []*models.Todo{}
+		todoLists = append(todoLists, &tl)
 	}
 
-	return taskLists, nil
+	return todoLists, nil
 }
 
 // ToDo: Remove, since it doesn't make sense

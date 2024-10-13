@@ -9,9 +9,9 @@ import (
 type DBRepo interface {
 	Connection() *sql.DB
 
-	AllTasksForUser(userID int) ([]*models.Task, error)
-	AllTasksForTaskList(taskListID int) ([]*models.Task, error)
-	AllTaskListsForUser(userID int) ([]*models.TaskList, error)
+	AllTodosForUser(userID int) ([]*models.Todo, error)
+	AllTodosForTodoList(todoListID int) ([]*models.Todo, error)
+	AllTodoListsForUser(userID int) ([]*models.TodoList, error)
 
 	UserByID(userID int) (*models.User, error)
 }

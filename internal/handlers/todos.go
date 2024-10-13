@@ -8,7 +8,7 @@ import (
 	"github.com/go-chi/chi/v5"
 )
 
-func (m *Repository) GetAllTasksForUser(w http.ResponseWriter, r *http.Request) {
+func (m *Repository) GetAllTodosForUser(w http.ResponseWriter, r *http.Request) {
 	id := chi.URLParam(r, "id")
 	userID, err := strconv.Atoi(id)
 	if err != nil {
@@ -16,43 +16,43 @@ func (m *Repository) GetAllTasksForUser(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
-	tasks, err := m.DB.AllTasksForUser(userID)
+	todos, err := m.DB.AllTodosForUser(userID)
 	if err != nil {
 		utils.ErrorJSON(w, err)
 		return
 	}
 
-	if len(tasks) == 0 {
+	if len(todos) == 0 {
 		utils.ClientError(w, 404)
 		return
 	}
 
-	_ = utils.WriteJSON(w, http.StatusOK, tasks)
+	_ = utils.WriteJSON(w, http.StatusOK, todos)
 }
 
-func (m *Repository) GetTasksForTaskList(w http.ResponseWriter, r *http.Request) {
+func (m *Repository) GetTodossForTodoList(w http.ResponseWriter, r *http.Request) {
 	id := chi.URLParam(r, "id")
-	taskListID, err := strconv.Atoi(id)
+	todoListID, err := strconv.Atoi(id)
 	if err != nil {
 		utils.ErrorJSON(w, err)
 		return
 	}
 
-	tasks, err := m.DB.AllTasksForTaskList(taskListID)
+	todos, err := m.DB.AllTodosForTodoList(todoListID)
 	if err != nil {
 		utils.ErrorJSON(w, err)
 		return
 	}
 
-	if len(tasks) == 0 {
+	if len(todos) == 0 {
 		utils.ClientError(w, 404)
 		return
 	}
 
-	_ = utils.WriteJSON(w, http.StatusOK, tasks)
+	_ = utils.WriteJSON(w, http.StatusOK, todos)
 }
 
-func (m *Repository) GetTaskListsForUser(w http.ResponseWriter, r *http.Request) {
+func (m *Repository) GetTodoListsForUser(w http.ResponseWriter, r *http.Request) {
 	id := chi.URLParam(r, "id")
 	userID, err := strconv.Atoi(id)
 	if err != nil {
@@ -60,29 +60,29 @@ func (m *Repository) GetTaskListsForUser(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
-	taskLists, err := m.DB.AllTaskListsForUser(userID)
+	todoLists, err := m.DB.AllTodoListsForUser(userID)
 	if err != nil {
 		utils.ErrorJSON(w, err)
 		return
 	}
 
-	if len(taskLists) == 0 {
+	if len(todoLists) == 0 {
 		utils.ClientError(w, 404)
 		return
 	}
 
-	for _, tl := range taskLists {
-		tasks, err := m.DB.AllTasksForTaskList(tl.ID)
+	for _, tl := range todoLists {
+		todos, err := m.DB.AllTodosForTodoList(tl.ID)
 		if err != nil {
 			utils.ErrorJSON(w, err)
 			return
 		}
-		if len(tasks) == 0 {
+		if len(todos) == 0 {
 			utils.ClientError(w, 404)
 			return
 		}
-		tl.Tasks = tasks
-    }
+		tl.Todos = todos
+	}
 
-	_ = utils.WriteJSON(w, http.StatusOK, taskLists)
+	_ = utils.WriteJSON(w, http.StatusOK, todoLists)
 }

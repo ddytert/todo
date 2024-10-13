@@ -14,10 +14,10 @@ func GetRouter() http.Handler {
 	// Gerneral
 	mux.Get("/health", handlers.Repo.HealthCheck)
 
-	// Tasks
-	mux.Get("/tasks/user/{id}", handlers.Repo.GetAllTasksForUser)
-	mux.Get("/tasklist/{id}", handlers.Repo.GetTasksForTaskList)
-	mux.Get("/tasklists/user/{id}", handlers.Repo.GetTaskListsForUser)
+	// Todos
+	mux.Get("/todos/user/{id}", handlers.Repo.GetAllTodosForUser)
+	mux.Get("/todoList/{id}", handlers.Repo.GetTodossForTodoList)
+	mux.Get("/todoLists/user/{id}", handlers.Repo.GetTodoListsForUser)
 
 	// Users
 	mux.Get("/users/{id}", handlers.Repo.GetUserById)

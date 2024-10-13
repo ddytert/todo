@@ -2,9 +2,9 @@ package models
 
 import "time"
 
-type Task struct {
+type Todo struct {
 	ID         int        `json:"id"`
-	TaskListID int        `json:"task_list_id"`
+	TodoListID int        `json:"todo_list_id"`
 	UserID     int        `json:"user_id"`
 	Title      string     `json:"title"`
 	Content    string     `json:"content"`
