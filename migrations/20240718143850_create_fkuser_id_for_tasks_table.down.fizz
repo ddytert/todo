@@ -1,1 +1,1 @@
-drop_foreign_key("tasks", "tasks_users_id_fk", {})
+drop_foreign_key("todos", "todos_users_id_fk", {})

@@ -1,2 +1,0 @@
-add_column("tasks", "done", "boolean", {"null": true})
-

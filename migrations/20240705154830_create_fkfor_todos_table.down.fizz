@@ -1,0 +1,5 @@
+drop_foreign_key("todos", "todos_task_lists_id_fk", {})
+
+drop_foreign_key("todos", "todos_states_id_fk", {})
+
+drop_foreign_key("todos", "todos_priorities_id_fk", {})

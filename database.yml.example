@@ -1,6 +1,6 @@
 development:
   dialect: postgres
-  database: todo
+  database: todo_db
   user: 
   password: 
   host: 127.0.0.1

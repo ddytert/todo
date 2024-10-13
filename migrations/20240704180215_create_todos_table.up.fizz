@@ -1,9 +1,11 @@
-create_table("tasks") {
+create_table("todos") {
     t.Column("id", "integer", {primary: true})
-    t.Column("task_list_id", "integer", {})
+    t.Column("todo_list_id", "integer", {})
+    t.Column("user_id", "integer", {})
     t.Column("title", "string", {})
     t.Column("content", "string", {"default": ""})
+    t.Column("done", "boolean", {"default": false})
     t.Column("state_id", "integer", {})
     t.Column("priority_id", "integer", {})
-    t.Column("due_date", "timestamp", {})
+    t.Column("due_date", "timestamp", {"null": true})
 }

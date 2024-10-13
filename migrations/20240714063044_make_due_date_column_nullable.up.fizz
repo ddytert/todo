@@ -1,3 +1,0 @@
-change_column("task_lists", "due_date", "timestamp", {"null": true})
-
-change_column("tasks", "due_date", "timestamp", {"null": true})

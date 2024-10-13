@@ -8,6 +8,7 @@ type TodoList struct {
 	UserID      int        `json:"user_id"`
 	Name        string     `json:"name"`
 	Description string     `json:"description"`
+	Done        bool       `json:"done"`
 	StateID     int        `json:"state_id"`
 	PriorityID  int        `json:"priority_id"`
 	DueDate     *time.Time `json:"due_date"`
